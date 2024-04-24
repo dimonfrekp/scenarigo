@@ -324,6 +324,7 @@ func buildRequestMsg(ctx *context.Context, req interface{}, src interface{}) err
 	if err := yaml.NewEncoder(&buf, yaml.JSON()).Encode(x); err != nil {
 		return err
 	}
+	ctx.Reporter().Log(buf.String())
 	message, ok := req.(proto.Message)
 	if ok {
 		if err := protojson.Unmarshal(buf.Bytes(), message); err != nil {
